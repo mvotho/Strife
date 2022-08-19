@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Message from "./Message";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabaseClient";
-
 import { queryClient } from "../App";
 
 interface InputProps {
@@ -60,6 +59,17 @@ export default function Feed() {
 
     const channel = 1;
 
+    useEffect(() => {
+        const mySubscription = supabase
+            .from('Message')
+            .on('INSERT', (payload) => {
+                console.log('Change received!', payload);
+                setFeed((prevFeed) => [...prevFeed, payload.new]);
+            })
+            .subscribe()
+    }, [])
+
+
     const { data } = useQuery([1, "messages"], async () => {
         const { data, error } = await supabase
             .from("Message")
@@ -72,7 +82,7 @@ export default function Feed() {
         async (message: string) => {
             const { data, error } = await supabase
                 .from("Message")
-                .insert([{ content: message, channel_id: channel, owner_id: 1}]);
+                .insert([{ content: message, channel_id: channel, owner_id: 1 }]);
             return data;
         },
         {
