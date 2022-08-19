@@ -64,7 +64,7 @@ export default function Feed() {
         const { data, error } = await supabase
             .from("Message")
             .select("*")
-            .eq("channel", 1);
+            .eq("channel_id", 1);
         return data;
     });
 
@@ -72,7 +72,7 @@ export default function Feed() {
         async (message: string) => {
             const { data, error } = await supabase
                 .from("Message")
-                .insert([{ content: message, channel: channel, user: 1}]);
+                .insert([{ content: message, channel_id: channel, owner_id: 1}]);
             return data;
         },
         {
