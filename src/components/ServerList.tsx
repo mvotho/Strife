@@ -8,8 +8,8 @@ export default function ServerList() {
   });
 
   return (
-    <div className="flex flex-col flex-shrink-0 items-center gap-4 p-4 h-screen overflow-y-auto bg-gray-900">
-      <div className="flex flex-col gap-4 bg-gray-800 rounded-full">
+    <div className="flex flex-row items-center gap-4 p-4 h-1/6 overflow-y-auto bg-gray-900">
+      <div className="flex flex-row gap-4 bg-gray-800 rounded-full">
         {data?.map((data) => (
           <div
             key={data.id}
