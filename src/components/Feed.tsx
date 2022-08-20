@@ -112,8 +112,8 @@ export default function Feed() {
         }
 
         return (
-            <div className="flex flex-col h-full overflow-hidden pb-4">
-                <div className="flex-1 overflow-y-auto flex flex-col gap-4 my-4 pr-4">
+            <div className="flex flex-col h-screen overflow-auto pb-4">
+                <div className="flex-1 overflow-y-auto flex flex-col justify-end gap-4 my-4 pr-4">
                     {prevFeed?.map((message) => (
 
                     <Message text={message} />
