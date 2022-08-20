@@ -55,55 +55,72 @@ function Input({ onSubmit }: InputProps) {
 
 export default function Feed() {
 
-    const [prevFeed, setFeed] = useState<String[]>([]);
+    const [prevFeed, setFeed] = useState<[]>([]);
 
     const channel = 1;
 
-    useEffect(() => {
-        const mySubscription = supabase
-            .from('Message')
-            .on('INSERT', (payload) => {
-                console.log('Change received!', payload);
-                setFeed((prevFeed) => [...prevFeed, payload.new]);
-            })
-            .subscribe()
-    }, [])
 
+    const getMessages = async () => {
 
-    const { data } = useQuery([1, "messages"], async () => {
-        const { data, error } = await supabase
-            .from("Message")
-            .select("*")
-            .eq("channel_id", 1);
-        return data;
-    });
-
-    const mutation = useMutation(
-        async (message: string) => {
-            const { data, error } = await supabase
+            let { data, error, status } = await supabase
                 .from("Message")
-                .insert([{ content: message, channel_id: channel, owner_id: 1 }]);
-            return data;
-        },
-        {
-            onSuccess: () => queryClient.invalidateQueries([1, "messages"]),
+                .select("*")
+                .eq("channel_id", 1);
+
+            if(data){
+                data?.map((message) => (     
+                    setFeed((prevFeed) => [...prevFeed, message.content])
+                ))
+            }
         }
-    );
 
-    function onSubmit(data: any) {
-        mutation.mutate(data.message);
-        console.log(data);
-        setFeed((prevFeed) => [...prevFeed, data.message]);
-    }
+        useEffect(() => {
+            setFeed([]);
+            getMessages();
+        }, [])
 
-    return (
-        <div className="flex flex-col h-full overflow-hidden pb-4">
-            <div className="flex-1 overflow-y-auto flex flex-col gap-4 my-4 pr-4">
-                {data?.map((message) => (
-                    <Message text={message.content} key={message.id} />
-                ))}
+
+        // Create a filter only for new messages
+        const databaseFilter = {
+            schema: 'public',
+            table: 'Message',
+            event: 'INSERT',
+        }
+
+        useEffect(() => {
+            const channels = supabase
+                .channel('*')
+                .on('postgres_changes', databaseFilter, (payload: any) => {
+                    setFeed((prevFeed) => [...prevFeed, payload.new.content]);
+                })
+                .subscribe()
+            console.log(prevFeed);
+        }, [])
+
+        const mutation = useMutation(
+            async (message: string) => {
+                const { data, error } = await supabase
+                    .from("Message")
+                    .insert([{ content: message, channel_id: channel, owner_id: 1 }]);
+                return data;
+            }
+        );
+
+        function onSubmit(data: any) {
+            mutation.mutate(data.message);
+            console.log(prevFeed)
+        }
+
+        return (
+            <div className="flex flex-col h-full overflow-hidden pb-4">
+                <div className="flex-1 overflow-y-auto flex flex-col gap-4 my-4 pr-4">
+                    {prevFeed?.map((message) => (
+
+                    <Message text={message} />
+
+                ))} 
+                </div>
+                <Input onSubmit={onSubmit} />
             </div>
-            <Input onSubmit={onSubmit} />
-        </div>
-    );
-}
+        );
+    }

@@ -1,6 +1,6 @@
 
 interface Props {
-  text: string;
+  text: String;
 }
 
 export default function Message({ text }: Props) {
