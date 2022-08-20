@@ -69,7 +69,7 @@ export default function Feed() {
 
             if(data){
                 data?.map((message) => (     
-                    setFeed((prevFeed) => [...prevFeed, message.content])
+                    setFeed((prevFeed):any => [...prevFeed, message.content])
                 ))
             }
         }
@@ -91,7 +91,7 @@ export default function Feed() {
             const channels = supabase
                 .channel('*')
                 .on('postgres_changes', databaseFilter, (payload: any) => {
-                    setFeed((prevFeed) => [...prevFeed, payload.new.content]);
+                    setFeed((prevFeed):any => [...prevFeed, payload.new.content]);
                 })
                 .subscribe()
             console.log(prevFeed);
