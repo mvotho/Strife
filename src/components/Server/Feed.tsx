@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Message from "./Message";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { supabase } from "../supabaseClient";
-import { queryClient } from "../App";
+import { supabase } from "../../supabaseClient";
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { queryClient } from "../../App";
 
 interface InputProps {
     onSubmit(e: any): void;
@@ -58,7 +59,7 @@ export default function Feed() {
     const [prevFeed, setFeed] = useState<[]>([]);
 
     const channel = 1;
-
+    const [parent] = useAutoAnimate(/* optional config */)
 
     const getMessages = async () => {
 
@@ -113,7 +114,7 @@ export default function Feed() {
 
         return (
             <div className="flex flex-col h-5/6 overflow-auto pb-4">
-                <div className="flex-1 overflow-y-auto flex flex-col justify-end gap-4 my-4 pr-4">
+                <div ref={parent} className="flex-1 overflow-y-auto flex flex-col justify-end gap-4 my-4 pr-4">
                     {prevFeed?.map((message) => (
 
                     <Message text={message} />

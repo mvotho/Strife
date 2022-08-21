@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 //import { Link, NavLink, useParams } from "react-router-dom";
 //import { lastSeenChannelAtom } from "../../atoms";
-import { supabase } from "../supabaseClient";
+import { supabase } from "../../supabaseClient";
 
 export type Channel = {
   id: string;
@@ -26,11 +26,14 @@ export function ChannelList() {
   });
 
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex flex-col gap-1 w-full h-full bg-slate-600">
+      <div className="flex flex-row items-center justify-center bg-slate-400">Channels</div>
+      
       {data?.map((channel) => (
         
-        <div>- {channel.name} {channel.id}</div>
+        <div className="">- {channel.name} {channel.id}</div>
       ))}
+      
     </div>
     
   );

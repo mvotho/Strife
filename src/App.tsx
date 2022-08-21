@@ -1,9 +1,9 @@
 import './index.css'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Feed from './components/Feed';
+import Feed from './components/Server/Feed';
 import ServerList from './components/ServerList';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { ChannelList } from './components/ChannelList';
+import { ChannelList } from './components/Server/ChannelList';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,14 +20,14 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className='h-screen'>
+      <div className='flex flex-row h-screen'>
         <div className='w-5/6'>
           <Feed></Feed>
-        <ServerList></ServerList>
+          <ServerList></ServerList>
         </div>
-      <div className='w-1/6'>
-        <ChannelList></ChannelList>
-      </div>
+        <div className='w-1/6'>
+          <ChannelList></ChannelList>
+        </div>
       </div>
 
       <ReactQueryDevtools initialIsOpen={true} />
