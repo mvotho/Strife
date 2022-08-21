@@ -59,7 +59,7 @@ export default function Feed() {
     const [prevFeed, setFeed] = useState<[]>([]);
 
     const channel = 1;
-    const [parent] = useAutoAnimate(/* optional config */)
+    const [parent]:any = useAutoAnimate(/* optional config */)
 
     const getMessages = async () => {
 
