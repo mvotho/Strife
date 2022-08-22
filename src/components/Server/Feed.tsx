@@ -28,16 +28,7 @@ function Input({ onSubmit }: InputProps) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="relative">
-            <div className="flex rounded-lg shadow-sm overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
-                <div className="bg-gray-600 flex items-center justify-center pl-4">
-                    <button
-                        type="button"
-                        className="-m-2.5 w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-500"
-                    >
-                        <span className="sr-only">Attach a file</span>
-                    </button>
-                </div>
-
+            <div className="flex rounded-tl-lg shadow-sm overflow-hidden focus-within:border-indigo-500 focus-within:ring-indigo-500">
                 <label htmlFor="message" className="sr-only">
                     Message #channel
                 </label>
@@ -45,7 +36,7 @@ function Input({ onSubmit }: InputProps) {
                     {...register("message")}
                     rows={1}
                     onKeyDown={handleMessageSubmit}
-                    className="block w-full py-3 px-4 resize-none bg-gray-600 caret-white text-white"
+                    className="block w-full py-3 px-4 resize-none bg-mineshaft caret-whisper/60 text-whisper"
                     placeholder="Message #channel"
                     defaultValue={""}
                 />
@@ -113,8 +104,8 @@ export default function Feed() {
         }
 
         return (
-            <div className="flex flex-col h-5/6 overflow-auto pb-4">
-                <div ref={parent} className="flex-1 overflow-y-auto flex flex-col justify-end gap-4 my-4 pr-4">
+            <div className="flex flex-col h-5/6 overflow-auto">
+                <div ref={parent} className="flex-1 overflow-y-auto flex flex-col justify-end gap-2 my-1">
                     {prevFeed?.map((message) => (
 
                     <Message text={message} />

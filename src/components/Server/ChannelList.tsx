@@ -26,8 +26,8 @@ export function ChannelList() {
   });
 
   return (
-    <div className="flex flex-col gap-1 w-full h-full bg-slate-600">
-      <div className="flex flex-row items-center justify-center bg-slate-400">Channels</div>
+    <div className="flex flex-col gap-1 w-full h-full bg-mineshaft text-whisper/50">
+      <div className="flex flex-row items-center justify-center bg-mineshaft">Channels</div>
       
       {data?.map((channel) => (
         
