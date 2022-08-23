@@ -48,9 +48,7 @@ function Input({ onSubmit }: InputProps) {
 
 export default function Feed() {
 
-    const [prevFeed, setFeed] = useState<[]>([]);
-    const { address } = useAccount()
-    const channel = 1;
+    const [prevFeed, setFeed] = useState<any[]>([]);
     const [parent]:any = useAutoAnimate(/* optional config */)
 
     const getMessages = async () => {
@@ -58,12 +56,14 @@ export default function Feed() {
             let { data, error, status } = await supabase
                 .from("Message")
                 .select("*")
-                .eq("channel_id", 1);
+                .eq("channel_id", "c735daa8-2b8d-48ac-b627-c8dc26428e0f");
 
             if(data){
-                data?.map((message) => (     
-                    setFeed((prevFeed):any => [...prevFeed, message.content])
-                ))
+                setFeed(data);
+                console.log(prevFeed)
+                // data?.map((message) => (     
+                //     setFeed((prevFeed):any => [...prevFeed, message.content])
+                // ))
             }
         }
 
@@ -84,7 +84,7 @@ export default function Feed() {
             const channels = supabase
                 .channel('*')
                 .on('postgres_changes', databaseFilter, (payload: any) => {
-                    setFeed((prevFeed):any => [...prevFeed, payload.new.content]);
+                    setFeed((prevFeed):any => [...prevFeed, payload.new]);
                 })
                 .subscribe()
             console.log(prevFeed);
@@ -94,7 +94,7 @@ export default function Feed() {
             async (message: string) => {
                 const { data, error } = await supabase
                     .from("Message")
-                    .insert([{ content: address, channel_id: channel, owner_id: 1 }]);
+                    .insert([{ content: message, channel_id: "c735daa8-2b8d-48ac-b627-c8dc26428e0f", owner_id: "949d79b9-4d8c-4084-bbaa-2a44404d886b" }]);
                 return data;
             }
         );
@@ -109,7 +109,7 @@ export default function Feed() {
                 <div ref={parent} className="flex-1 overflow-y-auto flex flex-col justify-end gap-2 my-1">
                     {prevFeed?.map((message) => (
 
-                    <Message text={message} />
+                    <Message text={message.content} id={message.owner_id} time={message.created_at} />
 
                 ))} 
                 </div>

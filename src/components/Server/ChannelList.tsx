@@ -21,7 +21,7 @@ export function ChannelList() {
     const { data } = await supabase
       .from("Channels")
       .select("*")
-      .eq("server_id", 1);
+      .eq("server_id", "f9951bfb-25f5-4300-b45e-7a2b0a83b550");
     return data;
   });
 
@@ -31,7 +31,7 @@ export function ChannelList() {
       
       {data?.map((channel) => (
         
-        <div className="">- {channel.name} {channel.id}</div>
+        <div className="">- {channel.name}</div>
       ))}
       
     </div>
