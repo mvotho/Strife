@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { supabase } from "../../supabaseClient";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { queryClient } from "../../App";
+import { useAccount } from "wagmi";
 
 interface InputProps {
     onSubmit(e: any): void;
@@ -48,7 +49,7 @@ function Input({ onSubmit }: InputProps) {
 export default function Feed() {
 
     const [prevFeed, setFeed] = useState<[]>([]);
-
+    const { address } = useAccount()
     const channel = 1;
     const [parent]:any = useAutoAnimate(/* optional config */)
 
@@ -93,7 +94,7 @@ export default function Feed() {
             async (message: string) => {
                 const { data, error } = await supabase
                     .from("Message")
-                    .insert([{ content: message, channel_id: channel, owner_id: 1 }]);
+                    .insert([{ content: address, channel_id: channel, owner_id: 1 }]);
                 return data;
             }
         );
