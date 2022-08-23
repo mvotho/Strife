@@ -2,6 +2,7 @@
 
 # Database scheme
 
-![Strife](https://user-images.githubusercontent.com/65135632/185653167-6f93aa3f-9c15-406f-a968-06fc09a11706.png)
+![Strife(1)](https://user-images.githubusercontent.com/65135632/186252425-de032228-c080-40b7-96b8-e7c048381f7f.png)
 
 Subject to change
+
