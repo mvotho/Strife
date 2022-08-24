@@ -17,6 +17,7 @@ import {
 import { publicProvider } from 'wagmi/providers/public';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
+import { ChannelList } from './components/Server/ChannelList';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,7 +62,9 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/app" element={<Strife />}/>
+              <Route path=":server" element={<Strife />}>
+              <Route path=":channel" element={<ChannelList />} />
+              </Route>
             </Routes>
           </BrowserRouter>
           {/* <ReactQueryDevtools initialIsOpen={true} /> */}

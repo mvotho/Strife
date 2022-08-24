@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 //import clsx from "clsx";
 // import { atom, useSetAtom } from "jotai";
 import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 //import { Link, NavLink, useParams } from "react-router-dom";
 //import { lastSeenChannelAtom } from "../../atoms";
 import { supabase } from "../../supabaseClient";
@@ -14,14 +15,15 @@ export type Channel = {
 };
 
 export function ChannelList() {
-//let { server } = useParams();
-//   const setLastSeenChannelAtom = useSetAtom(lastSeenChannelAtom);
+  let { server } = useParams();
+  console.log(server)
+  //const setLastSeenChannelAtom = useSetAtom(lastSeenChannelAtom);
 
-  const { data } = useQuery([`:channels`], async () => {
+  const { data } = useQuery([`${server}:channels`], async () => {
     const { data } = await supabase
       .from("Channels")
       .select("*")
-      .eq("server_id", "f9951bfb-25f5-4300-b45e-7a2b0a83b550");
+      .eq("server_id", server!);
     return data;
   });
 
@@ -30,8 +32,9 @@ export function ChannelList() {
       <div className="flex flex-row items-center justify-center bg-mineshaft">Channels</div>
       
       {data?.map((channel) => (
-        
-        <div className="">- {channel.name}</div>
+        <Link 
+        key={channel.id}
+        to={`/${server}/${channel.id}`}>- {channel.name}</Link>
       ))}
       
     </div>

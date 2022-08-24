@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 
 export default function ServerList() {
@@ -28,10 +29,11 @@ export default function ServerList() {
     <div className="flex flex-row items-center gap-4 p-4 h-1/6 overflow-y-auto bg-mineshaft">
       <div className="flex flex-row gap-4 rounded-full">
         {data?.map((data) => (
-          <button
+          <Link
             key={data.id}
+            to={`/${data.id}`}
             className="w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r from-flamingo to-whisper"
-          >{data.name}</button>
+          >{data.name}</Link>
         ))}
 
 

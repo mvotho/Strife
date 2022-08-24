@@ -6,6 +6,7 @@ import { supabase } from "../../supabaseClient";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { queryClient } from "../../App";
 import { useAccount } from "wagmi";
+import { useParams } from "react-router-dom";
 
 interface InputProps {
     onSubmit(e: any): void;
@@ -47,30 +48,28 @@ function Input({ onSubmit }: InputProps) {
 }
 
 export default function Feed() {
-
+    const { channel } = useParams();
     const [prevFeed, setFeed] = useState<any[]>([]);
     const [parent]:any = useAutoAnimate(/* optional config */)
 
+    console.log(channel)
     const getMessages = async () => {
 
             let { data, error, status } = await supabase
                 .from("Message")
                 .select("*")
-                .eq("channel_id", "c735daa8-2b8d-48ac-b627-c8dc26428e0f");
+                .eq("channel_id", channel);
 
             if(data){
                 setFeed(data);
                 console.log(prevFeed)
-                // data?.map((message) => (     
-                //     setFeed((prevFeed):any => [...prevFeed, message.content])
-                // ))
             }
         }
 
         useEffect(() => {
             setFeed([]);
             getMessages();
-        }, [])
+        }, [channel])
 
 
         // Create a filter only for new messages
@@ -94,7 +93,7 @@ export default function Feed() {
             async (message: string) => {
                 const { data, error } = await supabase
                     .from("Message")
-                    .insert([{ content: message, channel_id: "c735daa8-2b8d-48ac-b627-c8dc26428e0f", owner_id: "949d79b9-4d8c-4084-bbaa-2a44404d886b" }]);
+                    .insert([{ content: message, channel_id: channel, owner_id: "949d79b9-4d8c-4084-bbaa-2a44404d886b" }]);
                 return data;
             }
         );
