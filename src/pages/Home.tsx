@@ -6,6 +6,8 @@ import { Address } from '../components/Address'
 
 
 function Home() {
+    
+
 
   return (
         <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-6 sm:py-12 bg-white">
@@ -16,7 +18,6 @@ function Home() {
             <Address/>
           </div>
         </div>
-
   )
 }
 

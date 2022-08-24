@@ -22,8 +22,6 @@ export const Strife = () => {
         </div>
         <div className='w-1/6'>
           <ChannelList></ChannelList>
-          <Address></Address>
-          <ConnectButton/>
         </div>
       </div>
   )

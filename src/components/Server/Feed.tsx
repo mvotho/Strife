@@ -60,6 +60,7 @@ export default function Feed() {
                 .select("*")
                 .eq("channel_id", channel);
 
+                //join usernames
             if(data){
                 setFeed(data);
                 console.log(prevFeed)
@@ -103,11 +104,15 @@ export default function Feed() {
             console.log(prevFeed)
         }
 
+
+
+
+
         return (
             <div className="flex flex-col h-5/6 overflow-auto">
                 <div ref={parent} className="flex-1 overflow-y-auto flex flex-col justify-end gap-2 my-1">
                     {prevFeed?.map((message) => (
-
+                    
                     <Message text={message.content} id={message.owner_id} time={message.created_at} />
 
                 ))} 
