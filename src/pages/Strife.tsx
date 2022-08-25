@@ -1,7 +1,6 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-import React from 'react'
+
+import { Navigate } from 'react-router-dom'
 import { useAccount, useEnsName } from 'wagmi'
-import { Address } from '../components/Address'
 import { ChannelList } from '../components/Server/ChannelList'
 import Feed from '../components/Server/Feed'
 import ServerList from '../components/ServerList'
@@ -11,7 +10,7 @@ export const Strife = () => {
   const { isDisconnected } = useAccount()
 
 
-  if (isDisconnected) return <div>Disconnected</div>
+  if (isDisconnected ) return <div><Navigate to="/" replace={true} /></div>
 
 
   return (

@@ -5,6 +5,7 @@ import { Strife } from './pages/Strife';
 import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultWallets,
+  darkTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import {
@@ -57,7 +58,9 @@ function App() {
 
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} theme={darkTheme({
+        accentColor: '#f25939'
+      })}>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <Routes>
