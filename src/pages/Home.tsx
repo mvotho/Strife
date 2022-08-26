@@ -10,8 +10,6 @@ import { supabase } from '../supabaseClient'
 
 
 function Home() {
-    
-
 
 async function test() {
   const { address, isConnecting, isDisconnected } = useAccount()

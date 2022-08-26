@@ -92,9 +92,12 @@ export default function Feed() {
 
         const mutation = useMutation(
             async (message: string) => {
+
+                const id = localStorage.getItem("userid")
+
                 const { data, error } = await supabase
                     .from("Message")
-                    .insert([{ content: message, channel_id: channel, owner_id: "949d79b9-4d8c-4084-bbaa-2a44404d886b" }]);
+                    .insert([{ content: message, channel_id: channel, owner_id: id }]);
                 return data;
             }
         );
