@@ -1,16 +1,14 @@
+import { useQuery } from '@tanstack/react-query'
+import { ethers } from 'ethers'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAccount } from 'wagmi'
+import { supabase } from '../supabaseClient'
 
 const Login = () => {
     const { address, isConnecting, isDisconnected } = useAccount()
 
 
-    //ON LOGIN IF EXIST OR DOESNT
-
- 
-    
-    
     if (isConnecting) return <div>Connecting…</div>
     if (isDisconnected) return <div>Connect Wallet to Sign In</div>
     return (
