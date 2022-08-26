@@ -19,7 +19,12 @@ export default function Message({ text, id, time }: Props) {
       .eq("id", id)
       
       if(data){
-        setUsername(data[0].username);
+        if(data[0].username == null){
+          setUsername(data[0].address);
+        }else{
+          setUsername(data[0].username);
+        }
+        
       }
   }
 
