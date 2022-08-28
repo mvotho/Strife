@@ -1,10 +1,11 @@
+import { defaultAbiCoder } from "ethers/lib/utils";
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 
 interface Props {
-  text: String;
-  id: String;
-  time: String
+  text: string;
+  id: string;
+  time: string
 }
 
 export default function Message({ text, id, time }: Props) {
@@ -28,7 +29,11 @@ export default function Message({ text, id, time }: Props) {
       }
   }
 
-  
+      let isoDate = time;
+      var d = new Date(isoDate);
+      d.toLocaleDateString('en-GB')
+
+
       useEffect(() => {
         setUsername([]);
         getMessages();
@@ -43,7 +48,7 @@ export default function Message({ text, id, time }: Props) {
               <div className="text-whisper font-semibold cursor-pointer hover:underline hover:underline-offset-2">
                 {username}
               </div>
-              <div className="text-whisper/60 text-xs">{time}</div>
+              <div className="text-whisper/60 text-xs">{d.toTimeString().slice(0,9)} {d.toLocaleDateString()}</div>
             </div>
             <div className="text-whisper">{text}</div>
           </div>
