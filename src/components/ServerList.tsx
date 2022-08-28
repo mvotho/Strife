@@ -28,6 +28,11 @@ export default function ServerList() {
   return (
     <div className="flex flex-row items-center gap-4 p-4 h-1/6 overflow-y-auto bg-mineshaft">
       <div className="flex flex-row gap-4 rounded-full">
+      <div className="flex flex-row gap-4 bg-whisper rounded-full">
+          <Link className="w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r bg-flamingo hover:bg-whisper" to={"/app"}>Home</Link>
+        </div>
+        
+        
         {data?.map((data) => (
           <Link
             key={data.id}
