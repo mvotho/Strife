@@ -65,6 +65,19 @@ export default function Feed() {
                 setFeed(data);
                 console.log(prevFeed)
             }
+
+            //JOIN QUERY
+            // let { data, error, status } = await supabase
+            //     .from("Message")
+            //     .select("*, User (username)")
+            //     .eq("channel_id", channel);
+
+            //     //join usernames
+            // if(data){
+            //     setFeed(data);
+            //     console.log(prevFeed)
+            // }
+
         }
 
         useEffect(() => {
@@ -106,8 +119,6 @@ export default function Feed() {
             mutation.mutate(data.message);
             console.log(prevFeed)
         }
-
-
 
 
 
