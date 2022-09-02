@@ -11,14 +11,14 @@ export default function ServerList() {
 
 
 
-  const mutation = useMutation(
-    async (server: string) => {
-      const { data, error } = await supabase
-        .from("Servers")
-        .insert([{ name: "test", channel_id: 1, owner_id: 1 }]);
-      return data;
-    }
-  );
+  // const mutation = useMutation(
+  //   async (server: string) => {
+  //     const { data, error } = await supabase
+  //       .from("Servers")
+  //       .insert([{ name: "test", channel_id: 1, owner_id: 1 }]);
+  //     return data;
+  //   }
+  // );
 
   // function onClick() {
   //   mutation.mutate();

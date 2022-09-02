@@ -53,36 +53,24 @@ export default function Feed() {
     const [parent]:any = useAutoAnimate(/* optional config */)
 
     console.log(channel)
-    const getMessages = async () => {
 
-            let { data, error, status } = await supabase
-                .from("Message")
-                .select("*")
-                .eq("channel_id", channel);
-
-                //join usernames
-            if(data){
-                setFeed(data);
-                console.log(prevFeed)
-            }
-
-            //JOIN QUERY
-            // let { data, error, status } = await supabase
-            //     .from("Message")
-            //     .select("*, User (username)")
-            //     .eq("channel_id", channel);
-
-            //     //join usernames
-            // if(data){
-            //     setFeed(data);
-            //     console.log(prevFeed)
-            // }
-
+    const {data} = useQuery(["messages", channel], async ()=>{
+        const { data, error, status } = await supabase
+        .from("Message")
+        .select("*, Users (username)")
+        .eq("channel_id", channel);
+        
+        if(data){
+            setFeed(data);
+            console.log(prevFeed)
+            return data;
         }
+        
+    }
+   )
 
         useEffect(() => {
             setFeed([]);
-            getMessages();
         }, [channel])
 
 
