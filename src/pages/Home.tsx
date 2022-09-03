@@ -9,7 +9,7 @@ import { supabase } from '../supabaseClient'
 
 
 
-function Home() {
+export const Home = () => {
 
 async function test() {
   const { address, isConnecting, isDisconnected } = useAccount()
@@ -40,4 +40,4 @@ async function test() {
   )
 }
 
-export default Home
+export default Home;

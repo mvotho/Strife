@@ -20,6 +20,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import { ChannelList } from './components/Server/ChannelList';
 import UserHome from './pages/UserHome';
+import NotFound from './pages/NotFound';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,6 +66,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <Routes>
+              <Route path="*" element={<NotFound/>}/>
               <Route path="/" element={<Home />} />
               <Route path="/app" element={<UserHome/>}/>
               <Route path=":server" element={<Strife />}>
