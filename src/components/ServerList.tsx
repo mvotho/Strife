@@ -8,7 +8,7 @@ export default function ServerList() {
 
   const { data } = useQuery(["members"], async () => {
     const { data } = await supabase.from("Members")
-    .select("*, Servers(name)")
+    .select("*, Servers(name, id)")
     .eq("user_id", user)
     return data;
   });
@@ -38,8 +38,8 @@ console.log(data);
         
         {data?.map((data) => (
           <Link
-            key={data.id}
-            to={`/${data.id}`}
+            key={data.server_id}
+            to={`/${data.server_id}`}
             className="w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r from-flamingo to-whisper"
           >{data.Servers.name}</Link>
         ))}
