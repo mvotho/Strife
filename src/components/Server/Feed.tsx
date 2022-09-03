@@ -81,6 +81,7 @@ export default function Feed() {
             event: 'INSERT',
         }
 
+        //Subscription to insert
         useEffect(() => {
             const channels = supabase
                 .channel('*')
@@ -91,6 +92,8 @@ export default function Feed() {
             console.log(prevFeed);
         }, [])
 
+
+        //Insert
         const mutation = useMutation(
             async (message: string) => {
 
@@ -115,7 +118,7 @@ export default function Feed() {
                 <div ref={parent} className="flex-1 overflow-y-auto flex flex-col justify-end gap-2 my-1">
                     {prevFeed?.map((message) => (
                     
-                    <Message text={message.content} id={message.owner_id} time={message.created_at} />
+                    <Message text={message.content} user={message.Users.username} time={message.created_at} />
 
                 ))} 
                 </div>

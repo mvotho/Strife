@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 
 export default function ServerList() {
-  const { data } = useQuery(["servers"], async () => {
-    const { data } = await supabase.from("Servers").select("*");
+
+  const user = localStorage.getItem("userid");
+
+  const { data } = useQuery(["members"], async () => {
+    const { data } = await supabase.from("Members")
+    .select("*, Servers(name)")
+    .eq("user_id", user)
     return data;
   });
 
-
-
-
+console.log(data);
   // const mutation = useMutation(
   //   async (server: string) => {
   //     const { data, error } = await supabase
@@ -38,7 +41,7 @@ export default function ServerList() {
             key={data.id}
             to={`/${data.id}`}
             className="w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r from-flamingo to-whisper"
-          >{data.name}</Link>
+          >{data.Servers.name}</Link>
         ))}
 
 
