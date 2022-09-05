@@ -52,24 +52,22 @@ export default function Feed() {
     const [prevFeed, setFeed] = useState<any[]>([]);
     const [parent]:any = useAutoAnimate(/* optional config */)
 
-    console.log(channel)
+    console.log(channel, "channel got")
 
-    const {data} = useQuery(["messages", channel], async ()=>{
+    const messages = useQuery(["messages", channel], async ()=>{
         const { data, error, status } = await supabase
         .from("Message")
         .select("*, Users (username)")
         .eq("channel_id", channel);
         
-        if(data){
-            setFeed(data);
-            console.log(prevFeed)
-            return data;
-        }
+        return data;
         
     }
    )
 
+   console.log(messages.data);
         useEffect(() => {
+            console.log("setFeed blank ran")
             setFeed([]);
         }, [channel])
 
@@ -84,12 +82,11 @@ export default function Feed() {
         //Subscription to insert
         useEffect(() => {
             const channels = supabase
-                .channel('*')
-                .on('postgres_changes', databaseFilter, (payload: any) => {
-                    setFeed((prevFeed):any => [...prevFeed, payload.new]);
+                .channel('Message')
+                .on('postgres_changes', databaseFilter, async (payload: any) => {
+                    console.log(payload, "sub")
                 })
                 .subscribe()
-            console.log(prevFeed);
         }, [])
 
 
@@ -108,7 +105,6 @@ export default function Feed() {
 
         function onSubmit(data: any) {
             mutation.mutate(data.message);
-            console.log(prevFeed)
         }
 
 
@@ -116,9 +112,9 @@ export default function Feed() {
         return (
             <div className="flex flex-col h-5/6 overflow-auto">
                 <div ref={parent} className="flex-1 overflow-y-auto flex flex-col justify-end gap-2 my-1">
-                    {prevFeed?.map((message) => (
+                    {messages.data?.map((message) => (
                     
-                    <Message text={message.content} user={message.Users.username} time={message.created_at} />
+                    <Message key={message.id} text={message.content} user={message.Users.username} time={message.created_at} />
 
                 ))} 
                 </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const UserFeed = () => {
   return (
-    <div>UserFeed</div>
+    <div className='flex items-center justify-center'>Recent Server announcements</div>
   )
 }
 
