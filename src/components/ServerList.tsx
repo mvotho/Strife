@@ -1,11 +1,16 @@
 import { HomeIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
+import ServerModal from "./ServerModal";
 
 export default function ServerList() {
 
   const nav = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const user = localStorage.getItem("userid");
 
   const { data } = useQuery(["members"], async () => {
@@ -34,7 +39,7 @@ export default function ServerList() {
     <div className="flex flex-row items-center gap-4 p-4 h-1/6 overflow-y-auto bg-mineshaft">
       <div className="flex flex-row gap-4 rounded-full">
         <div className="flex flex-row gap-4 bg-whisper rounded-full">
-          <button className=" flex w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r bg-flamingo hover:bg-whisper items-center justify-center" onClick={() => { nav("/app") }}><HomeIcon className="h-6 w-6"/></button>
+          <button className=" flex w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r bg-flamingo hover:bg-whisper items-center justify-center" onClick={() => { nav("/app") }}><HomeIcon className="h-6 w-6" /></button>
         </div>
 
 
@@ -47,7 +52,8 @@ export default function ServerList() {
 
 
         <div className="flex flex-row gap-4 bg-whisper rounded-full">
-          <button className="flex w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r bg-flamingo hover:bg-whisper items-center justify-center" onClick={()=>{}}><PlusIcon className="h-6 w-6" /></button>
+        <button className="flex w-12 h-12 rounded-[24px] transition-all hover:rounded-xl bg-gradient-to-r bg-flamingo hover:bg-whisper items-center justify-center" onClick={()=>{setIsOpen(true)}}><PlusIcon className="h-6 w-6" /></button>
+        <ServerModal isOpen={isOpen} setIsOpen={setIsOpen}></ServerModal>
         </div>
       </div>
     </div>
