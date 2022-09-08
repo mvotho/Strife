@@ -2,7 +2,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { useAccount } from 'wagmi'
+import { chain, useAccount, useNetwork } from 'wagmi'
 import { Address } from '../components/Address'
 import Login from '../components/Login'
 import { supabase } from '../supabaseClient'
@@ -12,7 +12,8 @@ import { supabase } from '../supabaseClient'
 export const Home = () => {
 
 async function test() {
-  const { address, isConnecting, isDisconnected } = useAccount()
+  const { address } = useAccount()
+  
   let {data, error} = await supabase
         .from('Users')
         .select('*')
@@ -26,7 +27,6 @@ async function test() {
         }
     }
  test();
-
 
   return (
         <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-6 sm:py-12 bg-white">

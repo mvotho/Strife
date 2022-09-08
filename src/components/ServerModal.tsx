@@ -1,4 +1,3 @@
-
 import { Dialog } from '@headlessui/react';
 
 const ModalDialog = ({ isOpen, setIsOpen }: any) => {

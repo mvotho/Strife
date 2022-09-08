@@ -1,7 +1,7 @@
 import { HomeIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import ServerModal from "./ServerModal";
 

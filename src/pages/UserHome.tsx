@@ -1,8 +1,7 @@
-import React from 'react'
 import FriendsList from '../components/FriendsList'
 import ServerList from '../components/ServerList'
 import UserFeed from '../components/UserFeed'
-import { UserPlusIcon, UsersIcon } from '@heroicons/react/24/solid'
+
 
 const UserHome = () => {
     return (

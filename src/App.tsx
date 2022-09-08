@@ -60,7 +60,7 @@ function App() {
 
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains} theme={darkTheme({
+      <RainbowKitProvider chains={chains} initialChain={1} theme={darkTheme({
         accentColor: '#f25939'
       })}>
         <QueryClientProvider client={queryClient}>

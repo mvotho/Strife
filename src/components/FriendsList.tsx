@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { useState } from 'react'
+
 import { useQuery } from 'wagmi';
 import { supabase } from '../supabaseClient';
 import { CheckCircleIcon, UserPlusIcon, UsersIcon, XCircleIcon } from '@heroicons/react/24/solid'

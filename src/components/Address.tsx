@@ -1,5 +1,4 @@
-import React from 'react'
-import { useAccount, useEnsName } from 'wagmi'
+import { useAccount} from 'wagmi'
 
 export const Address = () => {
     const { address, isConnecting, isDisconnected } = useAccount()
